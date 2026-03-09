@@ -38,15 +38,12 @@ def load_and_prepare(filepath: str) -> tuple:
 
 def build_preprocessor() -> ColumnTransformer:
     numeric_transformer = Pipeline(steps=[('scaler', StandardScaler())])
-    
-    categorical_transformer = Pipeline(steps=
-                                       ('onehot', OneHotEncoder(
-                                           handle_unknown='ignore',
-                                           sparse_output=False
-                                       )))
+
+    categorical_transformer = Pipeline(steps=[('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))])
+
     preprocessor = ColumnTransformer(
         transformers=[
-            ('num', numeric_transformer,    NUMERIC_FEATURES),
+            ('num', numeric_transformer, NUMERIC_FEATURES),
             ('cat', categorical_transformer, CATEGORICAL_FEATURES),
         ],
         remainder='drop'
