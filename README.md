@@ -28,11 +28,10 @@ IBM Telco Customer Churn — 7,043 customers, 26.5% churn rate.
 
 | Model | ROC-AUC | Precision | Recall | F1 |
 |---|---|---|---|---|
-| Logistic Regression ✓ | 0.842 | — | — | — |
-| Random Forest | 0.840 | — | — | — |
-| XGBoost | 0.828 | — | — | — |
+| Logistic Regression ✓ | 0.842 | 0.65 | 0.51 | 0.58 |
+| Random Forest | 0.840 | 0.66 | 0.51 | 0.58 |
+| XGBoost | 0.828 | 0.62 | 0.54 | 0.57 |
 
-*Fill in Precision/Recall/F1 from your MLflow UI*
 
 **Best model:** Logistic Regression promoted to Production in MLflow Registry.
 
@@ -43,7 +42,7 @@ making accuracy meaningless here. ROC-AUC used as primary metric.
 
 ```bash
 # Clone
-git clone https://github.com/YOUR_USERNAME/mlops-churn-pipeline
+git clone https://github.com/Tushki4/mlops-churn-pipeline
 cd mlops-churn-pipeline
 python -m venv venv && venv\Scripts\activate
 pip install -r requirements.txt
@@ -98,3 +97,8 @@ mlops-churn-pipeline/
 
 ## Stack
 Python · pandas · scikit-learn · XGBoost · MLflow · FastAPI · Pydantic · Docker · GitHub Actions · pytest
+
+## Known Limitations
+Docker container requires a remote MLflow tracking server for model loading.
+Local file-based MLflow storage is not accessible from inside the container.
+Production deployment would use MLflow on a cloud VM with S3 artifact storage.
