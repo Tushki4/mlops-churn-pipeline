@@ -1,6 +1,6 @@
 # MLOps Churn Prediction Pipeline
 
-![CI](https://github.com/YOUR_USERNAME/mlops-churn-pipeline/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/Tushki4/mlops-churn-pipeline/actions/workflows/ci.yml/badge.svg)
 
 End-to-end MLOps project: from raw data to a versioned, containerised, tested prediction API.
 Built with sklearn, XGBoost, MLflow, FastAPI, Docker, and GitHub Actions.
