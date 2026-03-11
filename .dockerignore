@@ -1,0 +1,9 @@
+venv/
+mlruns/
+__pycache__/
+*.pyc
+.git/
+.env
+notebooks/
+tests/
+*.png

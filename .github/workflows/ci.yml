@@ -1,0 +1,48 @@
+name: MLOps CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Start MLflow server
+        run: |
+          mlflow server --host 127.0.0.1 --port 5000 &
+          sleep 5
+
+      - name: Train models and register best
+        run: |
+          python src/train.py
+          python src/register_model.py
+        env:
+          MLFLOW_TRACKING_URI: http://127.0.0.1:5000
+
+      - name: Run pytest
+        run: pytest tests/test_api.py -v
+        env:
+          MLFLOW_TRACKING_URI: http://127.0.0.1:5000
+
+      - name: Smoke test API
+        run: |
+          uvicorn src.api:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+          curl -f http://localhost:8000/health
+        env:
+          MLFLOW_TRACKING_URI: http://127.0.0.1:5000
