@@ -1,7 +1,7 @@
 import mlflow
 from mlflow.tracking import MlflowClient
 
-MODEL_NAME = "ChurnPredictorV3"
+MODEL_NAME = "ChurnPredictor"
 EXPERIMENT_NAME = "churn-prediction"
 METRIC = "roc_auc"
 
