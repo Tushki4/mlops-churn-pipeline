@@ -13,6 +13,7 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay
 )
 import matplotlib.pyplot as plt
+import tempfile
 import sys
 import os
 sys.path.insert(0, os.path.dirname(__file__))
@@ -64,8 +65,9 @@ def train_and_log(model, model_name: str, params: dict,
         ConfusionMatrixDisplay(cm, display_labels=['Stay', 'Churn']).plot(ax=ax)
         ax.set_title(f'{model_name} — Confusion Matrix')
         plt.tight_layout()
-        fig.savefig('confusion_matrix.png')
-        mlflow.log_artifact('confusion_matrix.png')
+        cm_path = os.path.join(tempfile.gettempdir(), 'confusion_matrix.png')
+        fig.savefig(cm_path)
+        mlflow.log_artifact(cm_path)
         plt.close(fig)
     
     # ── 7. LOG THE FULL PIPELINE AS A MODEL ─────────────────
