@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .env
 mlruns/
-data/
 *.pkl
 .ipynb_checkpoints/
+mlflow.db
+*.db
+*.png
